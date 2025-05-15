@@ -10,6 +10,9 @@ import com.springboot.ems.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -27,6 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
 
+    // Service to get an employee by id
     @Override
     public EmployeeDto getEmployee(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
@@ -34,5 +38,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                         "Employee does not exist with given id: "+ employeeId
                 ));
         return EmployeeMapper.mapToEmployeeDto(employee);
+    }
+
+    //service to get all the employees
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream().map(
+                EmployeeMapper::mapToEmployeeDto
+        ).collect(Collectors.toList());
     }
 }
