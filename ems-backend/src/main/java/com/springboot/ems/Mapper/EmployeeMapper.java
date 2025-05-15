@@ -1,5 +1,6 @@
 package com.springboot.ems.Mapper;
 
+import com.springboot.ems.dto.CreateEmployeeDto;
 import com.springboot.ems.dto.EmployeeDto;
 import com.springboot.ems.entity.Employee;
 
@@ -23,6 +24,16 @@ public class EmployeeMapper {
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail()
+        );
+    }
+
+    //Updating mapper to create DTO -> entity (no ID)
+    public static Employee mapToEmployee(CreateEmployeeDto createEmployeeDto){
+        return new Employee(
+                null,
+                createEmployeeDto.getFirstName(),
+                createEmployeeDto.getLastName(),
+                createEmployeeDto.getEmail()
         );
     }
 

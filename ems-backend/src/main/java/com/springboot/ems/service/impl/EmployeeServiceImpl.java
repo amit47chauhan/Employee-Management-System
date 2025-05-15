@@ -1,6 +1,7 @@
 package com.springboot.ems.service.impl;
 
 import com.springboot.ems.Mapper.EmployeeMapper;
+import com.springboot.ems.dto.CreateEmployeeDto;
 import com.springboot.ems.dto.EmployeeDto;
 import com.springboot.ems.entity.Employee;
 import com.springboot.ems.repository.EmployeeRepository;
@@ -16,9 +17,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //Client sends a request with employee data (in DTO form).
     @Override
-    public EmployeeDto createEmployee(EmployeeDto employeeDto) {
+    public EmployeeDto createEmployee(CreateEmployeeDto createEmployeeDto) {
         //Service converts DTO → entity
-        Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
+        Employee employee = EmployeeMapper.mapToEmployee(createEmployeeDto);
         //Entity is saved to the database using the repository.
         Employee savedEmployee = employeeRepository.save(employee);
         //Saved entity is converted back to a DTO. DTO is returned as the API response.
