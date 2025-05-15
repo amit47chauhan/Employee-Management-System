@@ -6,10 +6,7 @@ import com.springboot.ems.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -18,10 +15,17 @@ public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    //Build Add Employee Rest API
+    //Add  an Employee Rest API
     @PostMapping
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody CreateEmployeeDto createEmployeeDto){
        EmployeeDto savedEmployee = employeeService.createEmployee(createEmployeeDto);
        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+    }
+
+    //Get an Employee REST API
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") long employeeId){
+        EmployeeDto employeeDto = employeeService.getEmployee(employeeId);
+        return ResponseEntity.ok(employeeDto);
     }
 }

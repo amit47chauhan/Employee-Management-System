@@ -4,6 +4,7 @@ import com.springboot.ems.Mapper.EmployeeMapper;
 import com.springboot.ems.dto.CreateEmployeeDto;
 import com.springboot.ems.dto.EmployeeDto;
 import com.springboot.ems.entity.Employee;
+import com.springboot.ems.exception.ResourceNotFoundException;
 import com.springboot.ems.repository.EmployeeRepository;
 import com.springboot.ems.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -24,5 +25,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee savedEmployee = employeeRepository.save(employee);
         //Saved entity is converted back to a DTO. DTO is returned as the API response.
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
+    }
+
+    @Override
+    public EmployeeDto getEmployee(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new ResourceNotFoundException(
+                        "Employee does not exist with given id: "+ employeeId
+                ));
+        return EmployeeMapper.mapToEmployeeDto(employee);
     }
 }

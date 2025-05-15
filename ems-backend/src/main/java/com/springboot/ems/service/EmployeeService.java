@@ -5,4 +5,5 @@ import com.springboot.ems.dto.EmployeeDto;
 
 public interface EmployeeService {
     EmployeeDto createEmployee(CreateEmployeeDto createEmployeeDto);
+    EmployeeDto getEmployee(Long employeeId);
 }
