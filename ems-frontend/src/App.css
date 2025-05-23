@@ -1,9 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
 .footer{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    height: 50px;
+    z-index: 1030;
     background-color: black;
     text-align: center;
     color: white;
 }
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+  }
+
+.content-wrapper {
+    margin-top: 70px; /* height of header */
+    margin-bottom: 50px; /* height of footer */
+    overflow-y: auto;
+    max-height: calc(100vh - 120px); /* full height - header - footer */
+    padding: 20px;
+  }
