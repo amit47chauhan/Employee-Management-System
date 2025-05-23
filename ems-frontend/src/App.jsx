@@ -1,9 +1,13 @@
 import "./App.css";
 import EmployeeList from "./components/EmployeeList";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 function App() {
   return (
     <>
-      <EmployeeList/>
+      <Header />
+      <EmployeeList />
+      <Footer />
     </>
   );
 }
