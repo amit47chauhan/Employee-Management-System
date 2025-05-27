@@ -6,9 +6,11 @@ const EmployeeList = () => {
   
   const [employees, setEmployees] = useState([]);
   const navigator = useNavigate();
+  
   useEffect(() => {
     listEmployees().then((response) => {
       setEmployees(response.data)
+      console.log(response.data);
     }).catch(error => {
       console.error(error);
     })
