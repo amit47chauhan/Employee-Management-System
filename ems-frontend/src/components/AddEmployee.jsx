@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { createEmployee } from '../services/EmployeeService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AddEmployee = () => {
     const [firstName, setFirstName] = useState("");
@@ -12,7 +12,10 @@ const AddEmployee = () => {
       lastName: '',
       email: '',
     })
-    
+      // useParams is used to get the id from the URL if needed
+      const {id} = useParams();
+
+    // useNavigate is used to programmatically navigate to different routes
     const navigator = useNavigate();
 
     function validateForm() {
@@ -67,11 +70,20 @@ const AddEmployee = () => {
         navigator('/employees')
       })
     }
+
+    function pageTitle() {
+      if (id) {
+        return <h2 className='text-center'>Update Employee</h2>;
+      } else {
+        return <h2 className='text-center'>Add Employee</h2>;
+      }
+    }
+    
   return (
     <div className='container-fluid content-wrapper'>
       <div className='row'>
       <div className='card col-md-6 offset-md-3 offset-md-3'>
-        <h2 className='text-center'>Add Employee</h2>
+        {pageTitle()}
           <div className='card-body'>
               <form>
                 
