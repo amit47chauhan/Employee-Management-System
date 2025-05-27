@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { listEmployees } from "../services/EmployeeService";
+import { deleteEmployee, listEmployees } from "../services/EmployeeService";
 import { useNavigate} from "react-router-dom";
 
 const EmployeeList = () => {
@@ -8,13 +8,17 @@ const EmployeeList = () => {
   const navigator = useNavigate();
   
   useEffect(() => {
+    getEmployees();
+  },[])
+
+  function getEmployees(){
     listEmployees().then((response) => {
       setEmployees(response.data)
       console.log(response.data);
     }).catch(error => {
       console.error(error);
     })
-  },[])
+  }
 
   function addNewEmployee(){
    navigator('/add/employee')
@@ -24,6 +28,14 @@ const EmployeeList = () => {
     navigator(`/edit/employee/${id}`)
   }
 
+  function removeEmployee(id) {
+    deleteEmployee(id).then(() =>{
+      getEmployees();
+      alert("Employee deleted successfully");
+    }).catch(error => {
+      console.error(error);
+    });
+  }
 
   return (
     <div className="container-fluid content-wrapper">
@@ -47,7 +59,8 @@ const EmployeeList = () => {
               <td>{employee.lastName}</td>
               <td>{employee.email}</td>
               <td>
-                <button className="btn btn-info" onClick={() => updateEmployee(employee.id)}>Edit</button>
+                <button className="btn btn-info ms-2" onClick={() => updateEmployee(employee.id)}>Edit</button>
+                <button className="btn btn-danger ms-2" onClick={() => removeEmployee(employee.id)}>Delete</button>
               </td>
             </tr>)
           }
